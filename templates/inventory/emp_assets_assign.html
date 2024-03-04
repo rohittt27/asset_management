@@ -1,0 +1,51 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<section class="section profile">
+    <div class="pagetitle" >
+        <h1>Employee Assign Assets List:-</h1>
+      </div>
+      <div class="row">
+        <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <table class="table table-borderless datatable dataTable-table" >
+                                <thead>
+                                   
+                                    <tr>
+                                        <!-- <th scope="col" data-sortable="" style="width: 10.9735%;"><a href="#">Sr.No.</a>
+                                        </th> -->
+                                        <th><a href="#">Asset Name</a></th>
+                                        <th><a href="#">Asset Brand</a></th>
+                                        <th><a href="#">Serial Number</a></th>
+                                        <th><a href="#">Configuration</a></th>
+
+                                        <th><a href="#">Assign Date</a></th>
+                                        <!-- <th scope="col" data-sortable="" style="width: 9.9115%;"><a href="#>Release Date</a></th> -->
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    {% for asset in emp_records %}
+                                    <tr>
+                                        <!-- <td>{{ forloop.counter }}</td> -->
+                                        <td>{{ asset.asset.asset_type.asset_name }}</td>
+                                        <td>{{ asset.asset.asset_brand }}</td>
+                                        <td>{{ asset.asset.serial_number }}</td>
+                                        <td>{{ asset.asset.ram }} {{ asset.asset.ssd }} {{ asset.asset.processor }} {{ asset.asset.operating_system }} {{ asset.asset.storage }} {{ asset.asset.system_configuration }} </td>
+                                        <td>{{ asset.date_of_assign }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock body %}

@@ -1,0 +1,130 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<form>
+  <input type="button" value="Go back!" onclick="history.back()">
+ </form>
+ 
+<!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="pagetitle" >
+        <h1>Profile</h1>
+    </div>
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                <img src="{% static 'img/tw.jpeg' %}" alt="Profile" class="rounded-circle">
+                <h2 style="font-style: italic">{{ emp.first_name }} {{ emp.last_name }}</h2>
+                <h3 style="color:black;"><b>{{ emp.technology_name}} developer</b></h3>
+                <div class="social-links mt-2">
+                    <a href="#" class="twitter" style="color: #00acee"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="facebook" style="color: #3b5998"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="instagram" style="color: #cd486b "><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="linkedin"  style="color:#0A66C2"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-xl-8" style="margin-bottom: 160px;">
+          <div class="pagetitle">
+            <h1>Employee Profile Details :</h1>
+          </div>
+          <div class="row">
+            <div class="col-xl-10">
+              <div class="card">
+                <table class="table">
+                <thead>
+                <tr class="table-secondary">
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date of joining</th>
+                    <th scope="col">Mobile number</th>
+                    <th scope="col">Technology name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ emp.first_name }}</td>
+                    <td>{{ emp.last_name }}</td>
+                    <td>{{ emp.email }}</td>
+                    <td>{{ emp.date_of_joining }}</td>
+                    <td>{{ emp.mobile_number}}</td>
+                    <td>{{ emp.technology_name}}</td>
+                </tr>
+                </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-14">
+              <div class="pagetitle">
+                  <h1>Assign Assets Details</h1>
+              </div>
+              <div class="row">
+                  <div class="col-xl-10">
+                      <div class="card">
+                          <table class="table">
+                          <thead>
+                            <tr class="table-secondary">
+                                <th scope="col">Asset type</th>
+                                <th scope="col">Asset brand</th>
+                                <th scope="col">Asset assign date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for assets in employee_asset %}
+                            <tr>
+                                <td>{{assets.asset.asset_type.asset_name}}</td>
+                                <td>{{assets.asset.asset_brand}}</td>
+                                <td>{{assets.date_of_assign}}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      <div class="col-xl-14">
+        <div class="pagetitle">
+            <h1>Client assets Details</h1>
+        </div>
+        <div class="row">
+            <div class="col-xl-10">
+              <div class="card">
+                <table class="table">
+                <thead>
+                    <tr class="table-secondary">
+                      <th scope="col">Client Name</th>
+                      <th scope="col">Client Asset brand</th>
+                      <th scope="col">Client Asset type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in emp_clientasset %}
+                    <tr>
+                      <td>{{client.client_name}}</td>
+                      <td>{{client.asset_brand}}</td>
+                      <td>{{client.asset_type}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      {% block changepassword %}
+        {% include "dashboard/change_password.html" %}
+      {% endblock changepassword %}
+
+    </div>
+  </section>
+{% endblock body %}

@@ -1,0 +1,189 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style>
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Asset Edit </h5>
+                    <form action="" method="POST"  enctype="multipart/form-data" class="post-form" novalidate>
+                    {% if message %}
+                    <span  role="alert" id="messageError" aria-hidden="true">
+                    <font color="green"> {{message }} </font>
+                    </span>
+                    {% endif %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                    
+                        <div class="form-group">
+                            {{ field.errors }}
+                        <label for="{{ field.label }}" id="{{ field.label }}">{{ field.label }}</label>
+                            {{ field }} <br>
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+
+                        <div class="text-center">
+                            <button type="submit" id="confirm-delete" class="btn btn-primary">Update</button>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).on('click', '#confirm-delete', function () {
+            console.log("Areeeeeeee");
+            return confirm("are your sure you want to update this assets ?");
+        })
+    </script>        
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript">      
+      var message_ele = document.getElementById("messageError");
+      setTimeout(function(){         
+        message_ele.style.display = "none";
+      }, 3000);
+
+      var value = document.getElementById("id_payment_status").value;
+      if(value == "done") {
+           document.getElementById('id_payment_status').style. display = 'none';
+           document.getElementById("Payment status").style.display = "none";
+           document.getElementById("id_purchase_date").disabled = true;
+      } else {
+           document.getElementById("id_payment_status").style.display = "block";
+           document.getElementById("Payment status").style.display = "block";
+           document.getElementById("id_purchase_date").style.display = "none";
+           document.getElementById("Purchase date").style.display = "none";
+      }
+
+      var sel1 = document.getElementById("id_payment_status"), text = document.getElementById("id_purchase_date");
+      sel1.onchange = function(e) {
+       if (sel1.value == "done"){
+            document.getElementById("id_purchase_date").style.display = "block";
+            document.getElementById("Purchase date").style.display = "block";
+        } else {
+            document.getElementById("id_purchase_date").style.display = "none";
+            document.getElementById("Purchase date").style.display = "none";
+        }
+      };
+
+      var data = document.getElementById("id_in_voice").value;
+      if(data == "yes"){
+            document.getElementById("id_invoice_number").style.display = "block";
+            document.getElementById("Invoice number").style.display = "block";
+      } else {
+            document.getElementById("id_invoice_number").style.display = "none";
+            document.getElementById("Invoice number").style.display = "none";
+      }
+
+      var sel = document.getElementById("id_in_voice"), text = document.getElementById("id_invoice_number");
+      sel.onchange = function(e) {
+        if (sel.value == "yes"){
+            document.getElementById("id_invoice_number").style.display = "block";
+            document.getElementById("Invoice number").style.display = "block";
+        } else {
+            document.getElementById("Invoice number").style.display = "none";
+            document.getElementById("id_invoice_number").style.display = "none";
+        }
+      };
+
+      var gettext = document.getElementById('id_asset_type').options[document.getElementById('id_asset_type').selectedIndex].text
+      console.log(gettext);
+
+      if(gettext == 'Computer' || gettext == 'Laptop') {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'block';
+            document.getElementById("Ssd").style.display = 'block';
+            document.getElementById("id_processor").style.display = 'block';
+            document.getElementById("Processor").style.display = 'block';
+            document.getElementById("id_operating_system").style.display = 'block';
+            document.getElementById("Operating system").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        }
+        else if (gettext == 'Mobile' ) {
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_storage").style.display = 'block';
+            document.getElementById("Storage").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        } else {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_ram").style.display = 'none';
+            document.getElementById("Ram").style.display = 'none';
+        }
+
+        $(document).ready(function() {
+            $("select#id_asset_type").change(function() {
+                let selectedItem = $(this).children("option:selected").text();
+                console.log("You have selected the name - " + selectedItem);
+
+        if(selectedItem == 'Computer' || selectedItem == 'Laptop') {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'block';
+            document.getElementById("Ssd").style.display = 'block';
+            document.getElementById("id_processor").style.display = 'block';
+            document.getElementById("Processor").style.display = 'block';
+            document.getElementById("id_operating_system").style.display = 'block';
+            document.getElementById("Operating system").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        }
+        else if (selectedItem == 'Mobile' ) {
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_storage").style.display = 'block';
+            document.getElementById("Storage").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        } else {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_ram").style.display = 'none';
+            document.getElementById("Ram").style.display = 'none';
+        }
+           });
+        });
+    </script>
+    {% endblock body %}

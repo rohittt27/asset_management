@@ -1,0 +1,76 @@
+
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+
+</style>
+
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5 class="card-title text-center">Employee Edit Form</h5>
+                    <form method="POST"  enctype="multipart/form-data" class="post-form" >
+                        ​{% if messages %}
+
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {% for message in messages %}
+                            <strong>{{ message }}</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+            
+                        {% csrf_token %}
+                        {{ form.as_p}}
+                        <div class="form-group">
+                            {{ field.errors }}
+                        <label for="{{ field.label }}" >{{ field.label }}</label>
+                            {{ field }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="confirm-delete"  class="btn btn-primary">Update</button>                            
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">      
+      var message_ele = document.getElementById("messageError");
+      setTimeout(function(){         
+        message_ele.style.display = "none"; 
+      }, 6000);
+    </script>
+
+   
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-delete', function () {
+        console.log("Areeeeeeee");
+        return confirm("are your sure you want to update this employee ?");
+    })
+</script>
+    {% endblock body %}

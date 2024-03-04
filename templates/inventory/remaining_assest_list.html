@@ -1,0 +1,94 @@
+employee{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Remaining Assets List</h5>
+        <div class="row">
+            <div class="col">
+                <!-- <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="Search" title="Enter search keyword">
+                        <button type="submit" value="{{search}}" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                </div> -->
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <!-- <div class="col">
+                <a href="{% url 'assign-asset-create' %}">
+                    <button type="button" class="btn btn-primary">Add Assign Asset</button>
+                </a>
+            </div> -->
+        </div><br>
+
+        <!-- Table with hoverable rows -->
+        <table id="example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Asset Name</th>
+                    <th>Asset Brand</th>
+                    <th>Price</th>
+                    <th>Vendor</th>
+                    <th>System Configuration</th>
+                    <th>Serial Number</th>
+                    <th>Invoice Number</th>
+                    <th>Payment Status</th>
+                    
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for assign in remaining_assets %}
+                <tr>
+                    <td>{{assign.asset_type.asset_name}}</td>
+                    <td>{{assign.asset_brand}}</td>
+                    <td>{{assign.price}}</td>
+                    <td>{{assign.vendor.first_name}} {{assign.vendor.last_name}}</td>
+                    <td>{{assign.system_configuration}} {{assign.ram}} {{assign.ssd}} {{assign.operating_system}} {{assign.storage}}</td>
+                    <td>{{assign.serial_number}}</td>
+                    <td>{{assign.invoice_number}}</td>
+                    <td>{{assign.payment_status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-delete', function () {
+        return confirm("are your sure you want to delete this assets ?");
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script> 
+<link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css
+" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css
+
+" rel="stylesheet">
+
+{% endblock body %}

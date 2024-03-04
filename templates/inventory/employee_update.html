@@ -1,0 +1,41 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style>
+
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5 class="card-title text-center">Employee Edit </h5>
+                    <form action="" method="POST"  enctype="multipart/form-data" class="post-form" novalidate>                 
+                        {% if messages %}
+                        {% include 'dashboard/messages.html' %}
+                        {% endif %}
+                        {% csrf_token %}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update</button>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {% endblock body %}

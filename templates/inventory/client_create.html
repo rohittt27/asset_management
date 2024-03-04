@@ -1,0 +1,188 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="card-title"> Client Form </h5>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <p><label for="project">Client Name:</label>
+                        <input type="text" name="client" class="form-control"></p>
+
+                        <p><label for="project">Project:</label>
+                        <input type="text" name="project" class="form-control"></p>
+                        
+                        <p><label for="project_owner">Project owner:</label> 
+                            <input type="text" name="project_owner" class="form-control" ></p>
+    
+                        <p>
+                            <label for="employee">Employee:</label> 
+                            <select name="employee" class="form-control">
+                            <option value="" selected>---------</option>
+                                {% for emp in employee %}
+                                <option value="{{emp.email}}">{{emp.email}} </option>
+                                {% endfor %}
+                            </select>
+                        </p>
+
+                        <p><label for="asset_brand">Asset brand:</label>
+                        <input type="text" name="asset_brand" class="form-control"></p>
+
+                        <p><label for="asset_type" id="asset_type_label_id">Asset type:</label>
+                        <select name="asset_type" class="form-control" id="asset_type_id">
+                            <option value="" selected>---------</option>
+                            {% for ast in asset_type %}
+                            <option value="{{ast.asset_name}}">{{ast.asset_name}}</option>
+                            {% endfor %}
+                        </select></p>
+
+                        <p><label for="serial_number">Asset Serial Number:</label>
+                        <input type="text" name="serial_number" class="form-control"></p>
+
+                        <p><label for="configuration">Configuration:</label> 
+                            <input type="text" name="configuration" class="form-control"></p>    
+
+                        <p><label for="Ram" id="Ram">Ram</label>
+                            <select name="ram" id="id_ram">
+                              <option value="" selected>Select RAM</option>
+                              <option value="4GB">4GB</option>
+                              <option value="6GB">6GB</option>
+                              <option value="8GB">8GB</option>
+                              <option value="16GB">16GB</option>
+                              <option value="32GB">32GB</option>
+                              <option value="64GB">64GB</option>
+                            </select></p>
+
+                        <p><label for="Ssd" id="Ssd">Ssd</label>
+                            <select name="ssd" id="id_ssd">
+                              <option value="" selected>Select SSD</option>
+                              <option value="120">120</option>
+                              <option value="250">250</option>
+                              <option value="256">256</option>
+                              <option value="500">500</option>
+                            </select></p>
+
+                        <p><label for="Processor" id="Processor">Processor</label>
+                            <select name="processor" id="id_processor">
+                              <option value="" selected>Select Processor</option>
+                              <option value="i3">i3</option>
+                              <option value="i5">i5</option>
+                              <option value="i7">i7</option>
+                              <option value="i9">i9</option>
+                              <option value="i10">i10</option>
+                            </select></p>
+
+                        <p><label for="Operating system" id="Operating system">Operating system</label>
+                            <select name="operating_system" id="id_operating_system">
+                              <option value="" selected>Select OS</option>
+                              <option value="UBUNTU">ubuntu</option>
+                              <option value="MAC OS">mac os</option>
+                              <option value="WINDOW">window</option>
+                              <option value="HACKINTOSH">hackintosh</option>
+                            </select></p>
+
+                        <p><label for="Storage" id="Storage">Storage</label>
+                            <select name="storage" id="id_storage">
+                              <option value="" selected>Select Storage</option>
+                              <option value="16">16</option>
+                              <option value="32">32</option>
+                              <option value="64">64</option>
+                              <option value="128">128</option>
+                              <option value="256">256</option>
+                              <option value="512">512</option>
+                            </select></p>
+
+                        <!-- <p><label for="active">Is active:</label>
+                        <input type="checkbox" name="active_bool"  ></p> -->
+                    
+                        <div>
+                        <label for="dispatch">Is dispatch:</label>
+                            <input type="checkbox" name="dispatch" id="dis_patch" onclick="myFunction()">
+                        </div><br>
+                        
+                        <div id="text" style="display:none" >
+                            <p>
+                            <label for="date_of_dispatch">Date of dispatch:</label>
+                            <input type="date" name="date_of_dispatch" class="form-control" ></p>
+                            
+                            <p><label for="description">Description:</label>
+                            <textarea rows="4" cols="50" type="address" name="description" class="form-control" ></textarea>
+                            </p>
+                    
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("select#asset_type_id").change(function() {
+                let selectedItem = $(this).children("option:selected").text();
+                console.log("You have selected the name - " + selectedItem);
+
+        if(selectedItem == 'Computer' || selectedItem == 'Laptop') {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'block';
+            document.getElementById("Ssd").style.display = 'block';
+            document.getElementById("id_processor").style.display = 'block';
+            document.getElementById("Processor").style.display = 'block';
+            document.getElementById("id_operating_system").style.display = 'block';
+            document.getElementById("Operating system").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        }
+        else if (selectedItem == 'Mobile' ) {
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_storage").style.display = 'block';
+            document.getElementById("Storage").style.display = 'block';
+            document.getElementById("id_ram").style.display = 'block';
+            document.getElementById("Ram").style.display = 'block';
+        } else {
+            document.getElementById("id_storage").style.display = 'none';
+            document.getElementById("Storage").style.display = 'none';
+            document.getElementById("id_ssd").style.display = 'none';
+            document.getElementById("Ssd").style.display = 'none';
+            document.getElementById("id_processor").style.display = 'none';
+            document.getElementById("Processor").style.display = 'none';
+            document.getElementById("id_operating_system").style.display = 'none';
+            document.getElementById("Operating system").style.display = 'none';
+            document.getElementById("id_ram").style.display = 'none';
+            document.getElementById("Ram").style.display = 'none';
+        }
+           });
+        });
+    </script>
+{% endblock body %}
+
+
+
+
+
+
+

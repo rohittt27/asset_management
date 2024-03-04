@@ -1,0 +1,136 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+</form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style> 
+
+                       
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Assign Asset Form</h5>
+                    <form method="POST" class="post-form" novalidate>
+                        {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-dismissible alert-success">
+                            <strong>{{message}}</strong>
+                          </div>
+                        {% endfor %}
+
+                        {% endif %}                         
+
+                        {% csrf_token %}
+                        {{ form.as_p}}
+                        <div id="result"></div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{% url 'assign-asset-create' %}"><button type="button" class="btn btn-danger">Reset</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+$(document).ready(function() {
+    $('#id_employee').change(function() {
+        var employee = $(this).val();
+        console.log(employee,"GGGGGGGGGGGGGGG");
+        if (employee) {
+            $.ajax({
+                type: 'GET',
+                url: '/dashboard/assignassets/count/' + employee,
+                success: function(data) {
+                    if (Object.keys(data.assets_dict).length == 0){
+                        console.log(data.assets_dict);
+                        $('#result').html('No any Laptop Assign')
+                    }
+                    else {
+                        var assets = data.assets_dict;
+                        var list_items = '';
+                        for (var i = 0; i < assets.length; i++) {
+                            var asset = assets[i];
+                            var item = '<li>' + asset.brand + ' ' + asset.type + ' ' + asset.ram + ' ' + asset.operating_system + ' ' + asset.processor + ' ' + asset.system_configuration + '</li>';
+                            list_items += item;
+                        }
+                        var list = '<ul>' + list_items + '</ul>';
+                        $('#result').html(list);
+                    }
+                }
+            });
+        }
+    });
+});
+
+
+
+
+
+// $(document).ready(function() {
+//     $('#id_employee').change(function() {
+//         var employee = $(this).val();
+//         console.log(employee,"GGGGGGGGGGGGGGG");
+//         if (employee) {
+//             $.ajax({
+//                 type: 'GET',
+//                 url: '/dashboard/assignassets/count/' + employee,
+//                 success: function(data) {
+//                     if (Object.keys(data.assets_dict).length == 0){
+//                         console.log(data.assets_dict);
+//                         $('#result').html('No any Laptop Assign')
+//                     }
+//                     else {
+//                         console.log(data.assets_dict)
+//                     $('#result').html(data.assets_dict.brand + " " + data.assets_dict.type + " " + data.assets_dict.ram + " " + data.assets_dict.operating_system  + " " +  data.assets_dict.processor  + " " +  data.assets_dict.system_configuration );
+//                 }}
+//             });
+//         }
+//     });
+// });
+</script>
+<!-- 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        const selectEmployee = document.getElementById('id_employee');
+        console.log("jhbdsbds",selectEmployee);
+        $('#select2-id_employee-container').click( function() {
+            console.log("innnnnn");
+          const selectedValue = selectEmployee.options[selectEmployee.selectedIndex].value;
+          const url = '/assignassets/count/?employee=' + selectedValue;
+          console.log("jhbdsbds",selectedValue);
+          console.log("jhbdsbds",url); 
+          debugger
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+            console.log(data);
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        });
+        </script> -->
+        
+{% endblock body %}
+
+
+

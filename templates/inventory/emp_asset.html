@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+<!-- <style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style> -->
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Employee Asset Form</h5>
+                    <form method="POST" class="post-form" novalidate>
+                        {% csrf_token %}
+
+                        <!-- {{ form.as_p}} -->
+                        <p class="form-control">
+                            <label for="id_asset">Asset:</label>
+                            <select name="asset" required id="id_asset" multiple, class="form-control">
+                                <option value="">{{asset}}</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="id_employee">Employee:</label>
+                            <select name="employee" required id="id_employee" ,class="form-control">
+                                <option value="" selected>Select Employee</option>
+                                <option value="">{{employee}}</option>
+                            </select>
+                        </p>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    {% endblock body %}

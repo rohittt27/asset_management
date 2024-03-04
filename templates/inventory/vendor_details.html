@@ -1,0 +1,191 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="pagetitle">
+    <h1>Profile</h1>
+  </div><!-- End Page Title -->
+
+  <section class="section profile">
+    
+    
+    <div class="row">
+      <div class="col-xl-4">
+
+        <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+            
+            <img src="{% static 'img/tw.jpeg' %}" alt="Profile" class="rounded-circle">
+            <h2 style="font-style: italic">{{vendor.first_name }} {{vendor.last_name }}</h2>
+            <h2 class="col-lg-30 col-md-20">mobile no :- {{vendor.mobile_number}}</h2>
+            <h2 class="col-lg-30 col-md-20">email :- {{vendor.email}}</h2>
+
+            <!-- <h3 style="color:black;"><b>{{ vendor_assignasset.employee.technology_name}} developer</b></h3> -->
+                <div class="social-links mt-2">
+                <a href="#" class="twitter" style="color: #00acee"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook" style="color: #3b5998"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram" style="color: #cd486b "><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"  style="color:#0A66C2"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xl-8" style="margin-bottom: 160px;">
+        <div class="pagetitle">
+            <h1>Vendor Total Assets Details :</h1>
+          </div>
+             
+            <div class="row">
+                <div class="col-xl-12">
+                  <div class="card">
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                                    <th scope="col">Asset name  </th>
+                                    <th scope="col">Asset brand </th>
+                                    <th scope="col">Total Asset </th>
+                                    <th scope="col">Remaining Asset </th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for asset in output %}
+                                <tr>
+                                    <!-- <td>{{assign.employee.first_name}} {{assign.employee.last_name}}</td> -->
+                                    <td><a href="{% url 'vendor_asset_detail' asset_name=asset.asset_type  vendor_id=vendor.id %}">{{ asset.asset_type}}</a></td>
+                                    <td>{{ asset.asset_brand}}</td>
+                                    <td>{{ asset.count}}</td>
+                                    <td>{{ asset.remaining}} </td>
+                                    <td>{{ asset.asset_price}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tr>   
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                </div>
+            <div class="col-xl-14">
+                <div class="pagetitle">
+                    <h1>Assets Details</h1>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <table class="table">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Asset Name</th>
+                                        <th scope="col">Asset Brand</th>
+                                        <th scope="col">Price</th>
+                                        <!-- <th scope="col">Per per Asset</th> -->
+                                        <!-- <th scope="col">Vendor</th> -->
+                                        <!-- <th scope="col">Total Quantity</th> -->
+                                        <!-- <th scope="col">Remaining Quantity</th> -->
+                                        <!-- <th scope="col">Purchase Date</th> -->
+                                        <th scope="col">System Configuration</th>
+                                        
+                                        <!-- <th scope="col">Payment done</th> -->
+                                        <th scope="col">Serial Numbers</th>
+                                        <th scope="col">Invoice Number</th>
+                                        <th scope="col">Payment status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for asset in vendor_asset %}
+                                        <tr>
+                                            <td>{{asset.asset_type}}</td>
+                                            <td>{{asset.asset_brand}}</td>
+                                            <td>{{asset.price}}</td>
+                                            <!-- <td>{{asset.price_per_asset}}</td> -->
+                                            <!-- <td>{{asset.vendor}}</td> -->
+                                            <!-- <td>{{asset.total_quantity}}</td> -->
+                                            <!-- <td>{{asset.quantity}}</td> -->
+                                            <!-- <td>{{asset.purchase_date}}</td> -->
+                                            <!-- {% if asset.purchase_date %}
+                                            <td>{{asset.purchase_date}}</td>
+                                            {% else %}
+                                            <td>---</td>
+                                            {% endif %} -->
+                                            <td>{{asset.system_configuration}} {{asset.ram}} {{asset.ssd}} {{asset.operating_system}}</td>
+                                            
+                                            <!-- <td>{{asset.payment_date}}</td> -->
+                                            {% if asset.serial_number %}
+                                            <td>{{asset.serial_number}}</td>
+                                            {% else %}
+                                            <td>---</td>
+                                            {% endif %}
+                                            {% if asset.invoice_number %}
+                                            <td>{{asset.invoice_number}}</td>
+                                            {% else %}
+                                            <td>---</td>
+                                            {% endif %}
+                                            <td>{{asset.payment_status}}</td>
+                                            <td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-14">
+                    <div class="pagetitle">
+                        <h1>Assign Assets Details</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table-secondary">
+                                            <th scope="col">Asset Name</th>
+                                            <th scope="col">Asset Brand</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Serial Numbers</th>
+                                            <th scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for employee in assign_asset_details %}
+                                            <tr>
+                                                <td>
+                                                {{employee.asset.asset_type.asset_name}}</td>
+                                                <td>{{employee.asset.asset_brand}}</td>
+                                                <td>{{employee.employee.first_name}} {{employee.employee.last_name}}</td>
+                                                <td>{{employee.asset.serial_number}}</td>
+                                                <td>{{employee.date_of_assign}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% block changepassword %}
+
+            {% include "dashboard/change_password.html" %}
+            
+            {% endblock changepassword %}
+
+
+            </div><!-- End Bordered Tabs -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+    
+                
+
+{% endblock body %}

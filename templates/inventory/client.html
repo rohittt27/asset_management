@@ -1,0 +1,114 @@
+{% extends 'dashboard/base.html' %}
+​
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="card">
+    <div class="card-body">
+        <p><h3 style="color:black;">Client List</h3></p>
+        <div class="row">
+            <div class="col">
+                <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div><br>
+
+        <table id="example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Project Owner</th>
+                    <th>Project</th>
+                    <th>Employee</th>
+                    <th>Asset</th>
+                    <th>Brand</th>
+                    <th>Configuration</th>
+                    <th>Date of Dispatch</th>
+                    <th>Serial Number</th>
+                    <th>Active</th>
+                    <th>Dispatch</th>
+                    <th style="text-align: center;">Edit</th>
+                    <th style="text-align: center;">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in object_list %}
+                <tr>
+                    <td>{{client.client_name}}</td>
+                    <td>{{client.project_owner}}</td>
+                    <td>{{client.project}}</td>
+                    <td>{{client.employee}}</td>
+                    <td>{{client.asset_type}}</td> 
+                    <td>{{client.asset_brand}}</td>
+                    <td>{{client.configuration}} {{client.ram}} {{client.ssd}} {{client.operating_system}}</td>
+                    
+                    {% if client.date_of_dispatch %}
+                    <td>{{client.date_of_dispatch}}</td>
+                    {% else %}
+
+                    <td> ---</td>
+                    {% endif %}
+                    
+                    <!-- <td>{{client.description}}</td> -->
+                    <td>{{client.serial_number}}</td>
+                    <td>{{client.is_active}}</td>
+                    
+                    <td>{{client.is_dispatch}}</td>
+                    
+                    <td style="text-align: right;">
+                        <a href="{% url 'client-update' id=client.id %}">
+                            <button type="button" class="btn btn-primary">Update</button>
+                        </a>
+                    </td>
+                    <td style="text-align: left;">
+                        <a href="{% url 'client-delete' id=client.id %}" id="confirm-delete" class="btn btn-primary">delete</a>
+                    </td>                           
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a style="position: static;" href="{% url 'client-create'%}" >
+            <button type="button" class="btn btn-dark">Add client Assets</button>
+        </a>
+    </div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-delete', function () {
+        console.log("Areeeeeeee");
+        return confirm("are your sure you want to delete this client asset ?");
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script> 
+<link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css
+" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css
+
+" rel="stylesheet">
+
+{% endblock body %}

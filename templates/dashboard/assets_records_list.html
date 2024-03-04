@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+<div class="pagetitle">
+    <h1>Asset</h1>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+    <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="card-body">
+                    <h5 class="card-title">Assets Record </h5>
+                    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                        <div class="dataTable-top">
+                            <div class="dataTable-dropdown"><label><select class="dataTable-selector">
+                                        <option value="5">5</option>
+                                        <option value="10" selected="">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                    </select> entries per page</label></div>
+                            <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..."
+                                    type="text"></div>
+                        </div>
+                        <div class="dataTable-container">
+                            <table class="table table-borderless datatable dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-sortable="" style="width: 10.9735%;"><a href="#"
+                                                class="dataTable-sorter">Sr. No.</a></th>
+                                        <th scope="col" data-sortable="" style="width: 23.8938%;"><a href="#"
+                                                class="dataTable-sorter">Asset Brand</a></th>
+                                        <th scope="col" data-sortable="" style="width: 40.177%;"><a href="#"
+                                                class="dataTable-sorter">Asset Qty</a></th>
+                                        <th scope="col" data-sortable="" style="width: 40.177%;"><a href="#"
+                                                class="dataTable-sorter">System Configurations</a></th>
+                                        <th scope="col" data-sortable="" style="width: 9.9115%;"><a href="#"
+                                                class="dataTable-sorter">Vendor</a></th>
+                                    </tr>
+                                </thead>
+                                {% for asset_item in asset_data %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                                        <td>{{ asset_item.asset_brand }}</td>
+                                        <td><a href="#" class="text-primary">{{ asset_item.quantity }}</a></td>
+                                        <td><a href="#" class="text-primary">{{ asset_item.system_configuration }}</a>
+                                        </td>
+                                        <td>{{ asset_item.vendor }}</td>
+                                    </tr>
+                                </tbody>
+                                {% empty %}
+                                No Assets Found
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="dataTable-bottom">
+                            <div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
+                            <nav class="dataTable-pagination">
+                                <ul class="dataTable-pagination-list"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock body %}

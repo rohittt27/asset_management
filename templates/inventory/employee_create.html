@@ -1,0 +1,87 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+    }
+</style>
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="card-title">Employee Form</h5>
+                    </div>
+                    <form method="POST" class="post-form">                       
+                  
+
+                        {% if form.errors %}                       
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {% for error in form.errors %}
+                            <strong></strong> {{ error }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        {% csrf_token %}                        
+                        <p>
+                            <label for="id_first_name">First name:</label>
+                            <input type="text" name="first_name" maxlength="30" id="id_first_name" class="form-control"
+                                required>
+                        </p>
+                        <p>
+                            <label for="id_last_name">Last name:</label>
+                            <input type="text" name="last_name" maxlength="30" id="id_last_name" class="form-control"  
+                                required>
+                        </p>
+                        <p> 
+                            <label for="id_email">Email:</label>
+                            <input type="email" name="email" maxlength="30" id="id_email" class="form-control" required
+                                value="" value="{{form.cleaned_data.email}}">
+                        </p>
+
+                        <p id="data">
+                            <label for="id_employee_id">Employee id:</label>
+                            <input type="text" name="employee_id" maxlength="30" id="id_employee_id"
+                                class="form-control" required>
+                        </p>
+                        <!-- {{form.employee_id.errors}} -->
+                        <p>
+                            <label for="id_date_of_joining">Date of joining:</label>
+                            <input type="date" name="date_of_joining" required id="id_date_of_joining"
+                                class="form-control" required>
+                        </p>
+                        <p>
+                            <label for="id_mobile_number">Mobile number:</label>
+                            <input type="number" name="mobile_number" required id="id_mobile_number"
+                                class="form-control" required>
+                        </p>
+                        <p>
+                            <label for="id_technology_name">Technology Name:</label>
+                            <select name="technology_name" id="id_technology_name" class="form-control">
+                                <option>----------</option>
+                                {% for x,y in form.fields.technology_name.choices %}
+                                <option value="{{ x }}">{{y}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{% url 'employee-create' %}"><button type="button"
+                                    class="btn btn-danger">Reset</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}

@@ -1,0 +1,115 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block body %}
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Assets Details</h5><br>
+        <!-- Table with hoverable rows -->
+        <table id="example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Asset Name</th>
+                    <th scope="col">Asset Brand</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Vendor</th>
+                    <!-- <th scope="col">Purchase Date</th> -->
+                    <!-- <th scope="col">RAM</th>
+                    <th scope="col">SSD</th>
+                    <th scope="col">Processor</th>
+                    <th scope="col">Operating System</th>
+                    <th scope="col">Storage</th> -->
+                    <th scope="col">System Configuration</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Payment status</th>
+                    <th scope="col">Payment date</th>
+                    <th scope="col">Invoice</th>
+                    <th scope="col">Invoice Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in asset_details %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{asset.asset_type}}</td>
+                    <td>{{asset.asset_brand}}</td>
+                    <td>{{asset.price}}</td>
+                    <td>{{asset.vendor}}</td>
+                    <!-- {% if asset.purchase_date %}
+                    <td>{{asset.purchase_date}}</td>
+                    {% else %}
+                    <td> ---</td>
+                    {% endif %} -->
+                    <!-- {% if asset.ram %}
+                    <td>{{asset.ram}}</td>
+                    {% else %}
+                    <td>---</td>
+                    {% endif %}
+                    {% if asset.ssd %}
+                    <td>{{asset.ssd}}</td>
+                    {% else %}
+                    <td>---</td>
+                    {% endif %}
+                    {% if asset.processor %}
+                    <td>{{asset.processor}}</td>
+                    {% else %}
+                    <td>---</td>
+                    {% endif %}
+                    {% if asset.operating_system %}
+                    <td>{{asset.operating_system}}</td>
+                    {% else %}
+                    <td>---</td>
+                    {% endif %}
+                    {% if asset.storage %}
+                    <td>{{asset.storage}}</td>
+                    {% else %}
+                    <td>---</td>
+                    {% endif %} -->
+                    <!-- <td>{{asset.system_configuration}}</td> -->
+                    <td>{{asset.system_configuration}} {{asset.ram}} {{asset.ssd}} {{asset.processor}} {{asset.operating_system}} {{asset.storage}}</td>
+
+                    {% if asset.serial_number %}
+                    <td>{{asset.serial_number}}</td>
+                     {% else %}
+                    <td>---</td>
+                    {% endif %}
+                    <td>{{asset.payment_status}}</td>
+                    <td>{{asset.payment_date}}</td>
+                    <td>{{asset.in_voice}}</td>
+                    {% if asset.invoice_number %}
+                    <td>{{asset.invoice_number}}</td>
+                     {% else %}
+                    <td>---</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    } );
+    </script> 
+    <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css
+    " rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css
+    
+    " rel="stylesheet">
+{% endblock body %}

@@ -1,0 +1,88 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style>
+<section class="section" style=" margin-left: 230px">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Vendor Form</h5>
+                    <form method="POST" class="post-form">
+
+                        {% csrf_token %}
+
+
+                        {% comment %} <p>
+                            <label for="id_first_name">First name:</label>
+                            <input type="text" name="first_name" maxlength="30" id="id_first_name" class="form-control"
+                                value="{{vendor.first_name}}" required>
+                        </p>
+                        <p>
+                            <label for="id_last_name">Last name:</label>
+                            <input type="text" name="last_name" maxlength="30" id="id_last_name" class="form-control"
+                                value="{{vendor.last_name}}" required>
+                        </p>
+                        <p>
+                            <label for="id_email">Email:</label>
+                            <input type="email" name="email" maxlength="30" id="id_email" class="form-control"
+                                value="{{vendor.email}}" required>
+                        </p>
+                        {{form.email.errors}}
+                        <p>
+                            <label for="id_mobile_number">Mobile number:</label>
+                            <input type="number" name="mobile_number" id="id_mobile_number" class="form-control"
+                                required value="{{vendor.mobile_number}}">
+                        </p>
+                        {{form.mobile_number.errors}}
+                        <p>
+                            <label for="id_address">Address:</label>
+                            <textarea name="address" cols="40" rows="10" id="id_address" class="form-control"
+                                value="">{{ vendor.address }}</textarea>
+                        </p> {% endcomment %}
+                        {{form.as_p}}
+                        <div class="text-center">
+
+                            <button type="submit" id="confirm-update" class="btn btn-primary">Submit</button>
+                            <a href="{% url 'vendor-create' %}"><button type="button"
+                                    class="btn btn-danger">Reset</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    setTimeout(function () {
+        let errors = document.getElementsByClassName('errorlist');
+        while (errors.length > 0) {
+            errors[0].parentNode.removeChild(errors[0]);
+        }
+    }, 3000);
+</script>
+<script type="text/javascript">
+    var message_ele = document.getElementById("messageError");
+    setTimeout(function () {
+        message_ele.style.display = "none";
+    }, 3000);
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-update', function () {
+        return confirm("are your sure you want to update this vendor ?");
+    })
+</script>
+{% endblock body %}

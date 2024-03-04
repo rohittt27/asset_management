@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<style>
+    .errorlist {
+        list-style-type: none;
+        color: red;
+        font-size: 15px;
+    }
+</style>
+<section class="section" style=" margin-left: 230px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center"> Assign Asset Edit </h5>
+                    <form action="" method="POST"  enctype="multipart/form-data" class="post-form" novalidate>
+                    {% if message %}
+                    <span  role="alert" id="messageError" aria-hidden="true">
+                    <font color="green"> {{message }} </font>
+                    </span>
+                    {% endif %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                    
+                        <div class="form-group">
+                            {{ field.errors }}
+                        <label for="{{ field.label }}" id="{{ field.label }}">{{ field.label }}</label>
+                            {{ field }} <br>
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+
+                        <div class="text-center">
+                            <button type="submit" id="confirm-delete" class="btn btn-primary">Update</button>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).on('click', '#confirm-delete', function () {
+            console.log("Areeeeeeee");
+            return confirm("are your sure you want to update this assets ?");
+        })
+    </script>        
+   
+    {% endblock body %}

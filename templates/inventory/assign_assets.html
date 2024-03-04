@@ -1,0 +1,104 @@
+employee{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Assign Assets List</h5>
+        <div class="row">
+            <div class="col">
+                {% if messages %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                  {% for message in messages %}
+                    <strong></strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                <a href="{% url 'assign-asset-create' %}">
+                    <button type="button" class="btn btn-primary">Add Assign Asset</button>
+                </a>
+            </div>
+        </div><br>
+
+        <!-- Table with hoverable rows -->
+        <table id="example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Email</th>
+                    <th>Mobile Number</th>
+                    <th>Technology Name</th>
+                    <th>Asset Name</th>
+                    <th>Asset Brand</th>
+                    <th>Assign Date</th>
+                    <th>Edit</th>
+                    <td>Delete</td>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for assign in assing_assets_list %}
+                <tr>
+                    <td><a href="{% url 'assign-asset-detail' employee=assign.employee.id asset=assign.id%}">{{assign.employee.first_name}} {{assign.employee.last_name}}</a></td>
+                    <td>{{assign.employee.email}}</td>
+                    <td>{{assign.employee.mobile_number}}</td>
+                    <td>{{assign.employee.technology_name}}</td>
+                    <td>{{assign.asset.asset_type}}</td>
+                    <td>{{assign.asset.asset_brand}}</td>
+                    <td>{{assign.date_of_assign}}</td>
+                    <td>
+                        <a href="{% url 'assign-asset-edit' assign.id %}">
+                        <button type="button" type="submit" class="btn btn-primary" >Edit</button> </a></td>
+                    <td>
+                        <a href="{% url 'assign-asset-delete' assign.asset.id  assign.employee.id %}"><button type="button" id="confirm-delete"
+                            class="btn btn-primary">delete</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-delete', function () {
+        return confirm("are your sure you want to delete this assets ?");
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script> 
+<link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css
+" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css
+
+" rel="stylesheet">
+
+{% endblock body %}

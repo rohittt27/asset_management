@@ -1,0 +1,77 @@
+{% block sidebar %}
+​
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        ​
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+                <i style="color: black;" class="bi bi-grid"></i>
+                <span style="color: black;">Dashboard</span>
+            </a>
+        </li>
+        ​
+        <!--start Employee -->
+
+
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'employee-list' %}">
+                <i style="color: black;" class="bi bi-people"></i><span style="color: black;">Employee </span>
+            </a>
+        </li>
+        ​
+        <!-- start vendor -->
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'vendor-list' %}">
+                <i style="color: black;" class="bi bi-person-plus"></i><span style="color: black;">Vendor </span>
+            </a>
+        </li>
+        
+        <!-- start Asset Type Type -->
+        <br>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse">
+                <i style="color: black;" class="bi-laptop"></i><span style="color: black;">Assets</span><i style="color: black;" class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                ​<li class="nav-item">
+                    <a class="nav-link" href="{% url 'asset-type-list' %}">
+                        <i style="color: black;" class="bi-laptop-fill"></i>
+                        <span style="color: black;">Asset Type </span>
+                    </a>
+                </li>
+                ​<li class="nav-item">
+                    <a class="nav-link" href="{% url 'asset-list' %}">
+                        <i style="color: black;" class="bi-laptop-fill"></i>
+                        <span style="color: black;">Asset </span>
+                    </a>
+                </li>
+                ​<li class="nav-item">
+                    <a class="nav-link" href="{% url 'assign-assets-list' %}">
+                        <i style="color: black;" class="bi-laptop-fill"></i>
+                        <span style="color: black;">Assign Asset </span>
+                    </a>
+                </li>
+                ​<li class="nav-item">
+                    <a class="nav-link" href="{% url 'remaining-assets-list' %}">
+                        <i style="color: black;" class="bi-laptop-fill"></i>
+                        <span style="color: black;">Remaining Asset </span>
+                    </a>
+                </li> 
+            </ul>
+          </li>
+
+
+        ​​<li class="nav-item">
+            <a class="nav-link" href="{% url 'client-list' %}">
+                <i style="color: black;" class='bi bi-person-fill'></i>
+                <span style="color: black;">Client </span>
+            </a>
+        </li>
+
+        
+</aside>
+​
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'dashboard/base.html' %}
+​
+{% block body %}
+
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+   </form>
+   
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Employee List</h5>
+        <div class="row">
+            <div class="col">
+                <!-- <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="Search" title="Enter search keyword">
+                        <button type="submit" value="{{search}}" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                </div> -->
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                <a href="{% url 'employee-create' %}">
+                    <button type="button" class="btn btn-primary">Add Employee</button>
+                </a>
+            </div>
+        </div><br>
+        ​{% if messages %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- Table with hoverable rows -->
+        <table id="example" class="table table-hover">
+            <thead>
+                <tr>
+                    <th >Employee Name</th>
+                    <th >Email</th>
+                    <th >Joining Date</th>
+                    <th >Mobile Number</th>
+                    <th >Technology Name</th>
+                    <th style="text-align: center;">Action</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employee_list %}
+                <tr>
+                    <td><a href="{% url 'employee_details' employee_id=emp.id  %}">{{emp.first_name}} {{emp.last_name}}</a></td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.date_of_joining}}</td>
+                    <td>{{emp.mobile_number}}</td>
+                    <td>{{emp.technology_name}}</td>
+                    <td style="text-align: right;">
+                        <a href="{% url 'employee_update' emp.employee_id %}" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'employee_delete' emp.employee_id %}" id="confirm-delete" class="btn btn-primary">Delete</a>
+                      
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '#confirm-delete', function () {
+        console.log("Areeeeeeee");
+        return confirm("are your sure you want to delete this employee ?");
+    })
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script> 
+<link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css
+" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css
+
+" rel="stylesheet">
+{% endblock body %}
